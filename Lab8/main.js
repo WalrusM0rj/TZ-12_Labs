@@ -114,33 +114,3 @@ manager2.addEmployee(dev2);
 department.addManager(manager1);
 department.addManager(manager2);
 department.giveSalary();
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-class Department {
-  // ... constructor, addManager method
-
-  
-}
