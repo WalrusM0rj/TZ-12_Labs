@@ -6,6 +6,19 @@ class Employee {
     this.salary = salary;
     this.experience = experience;
   }
+
+  // Calculate countedSalary for Employee
+  countedSalary() {
+    let baseSalary = this.salary;
+
+    if (this.experience > 5) {
+      baseSalary = baseSalary * 1.2 + 500;
+    } else if (this.experience > 2) {
+      baseSalary = baseSalary + 200;
+    }
+
+    return baseSalary;
+  }
 }
   
 // Developer class
@@ -21,6 +34,11 @@ class Designer extends Employee {
     super(firstName, lastName, salary, experience);
     this.efficiencyCoefficient = efficiencyCoefficient;
   }
+  // Calculate countedSalary for Designer
+  countedSalary() {
+    const baseSalary = super.countedSalary();
+    return baseSalary * this.efficiencyCoefficient;
+  }
 }
   
 // Manager class
@@ -33,6 +51,27 @@ class Manager extends Employee {
   // Method to add an employee to the manager's team
   addEmployee(employee) {
     this.employees.push(employee);
+  }
+
+  // Calculate countedSalary for Manager
+  countedSalary() {
+    let baseSalary = super.countedSalary();
+    const teamSize = this.employees.length;
+    const developerCount = this.employees.filter(
+      (employee) => employee instanceof Developer
+    ).length;
+
+    if (teamSize > 10) {
+      baseSalary += 300;
+    } else if (teamSize > 5) {
+      baseSalary += 200;
+    }
+
+    if (developerCount / teamSize > 0.5) {
+      baseSalary *= 1.1;
+    }
+
+    return baseSalary;
   }
 }
   
@@ -54,9 +93,12 @@ class Department {
   // Give salary to all employees in the department
   giveSalary() {
     for (const manager of this.managers) {
-      console.log(`${manager.firstName} ${manager.lastName} received ${manager.salary} shekels`);
+      const managerCountedSalary = manager.countedSalary();
+      console.log(`${manager.firstName} ${manager.lastName} received ${managerCountedSalary} shekels`);
+      
       for (const employee of manager.employees) {
-        console.log(`${employee.firstName} ${employee.lastName} received ${employee.salary} shekels`);
+        const employeeCountedSalary = employee.countedSalary();
+        console.log(`${employee.firstName} ${employee.lastName} received ${employeeCountedSalary} shekels`);
       }
     }
   }
@@ -73,3 +115,32 @@ department.addManager(manager1);
 department.addManager(manager2);
 department.giveSalary();
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+class Department {
+  // ... constructor, addManager method
+
+  
+}
